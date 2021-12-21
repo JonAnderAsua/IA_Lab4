@@ -68,7 +68,7 @@ class QLearningAgent(ReinforcementAgent):
         if not valores:
             return 0.0
         else:
-            max(valores) #Devuelve la acción maxima
+            return max(valores) #Devuelve la acción maxima
 
     def computeActionFromQValues(self, state):
         """
