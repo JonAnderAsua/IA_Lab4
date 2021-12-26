@@ -27,7 +27,7 @@
 
 
 import mdp, util
-
+import sys
 from learningAgents import ValueEstimationAgent
 import collections
 
@@ -62,6 +62,21 @@ class ValueIterationAgent(ValueEstimationAgent):
     def runValueIteration(self):
         # Write value iteration code here
         "*** YOUR CODE HERE ***"
+
+        estados= self.mdp.getStates()
+
+        for i in range(0, self.iterations):
+            val = self.values.copy()
+            for estado in estados:
+                if not self.mdp.isTerminal(estado):
+                    acciones = self.mdp.getPossibleActions(estado)
+                    max = 1 - sys.maxsize #- infinido
+                    for accion in acciones:
+                        a = self.getQValue(estado, accion)
+                        if max <= a:
+                            max = a
+                    val[estado] = max
+            self.values = val
 
 
 

@@ -10,13 +10,14 @@
 # (denero@cs.berkeley.edu) and Dan Klein (klein@cs.berkeley.edu).
 # Student side autograding was added by Brad Miller, Nick Hay, and
 # Pieter Abbeel (pabbeel@cs.berkeley.edu).
-
+#!/usr/bin/python
+# -*- coding: <encoding name> -*-
 
 from game import *
 from learningAgents import ReinforcementAgent
 from featureExtractors import *
 
-import random,util,math
+import random, util, math
 
 class QLearningAgent(ReinforcementAgent):
     """
@@ -43,7 +44,6 @@ class QLearningAgent(ReinforcementAgent):
         ReinforcementAgent.__init__(self, **args)
 
         "*** YOUR CODE HERE ***"
-
         self.qVal = util.Counter()
 
     def getQValue(self, state, action):
@@ -53,7 +53,10 @@ class QLearningAgent(ReinforcementAgent):
           or the Q node value otherwise
         """
         "*** YOUR CODE HERE ***"
-        return self.qVal[state, action]
+        if (state, action) in self.qVal:
+            return self.qVal[state, action]
+        else:
+            return 0.0
 
 
     def computeValueFromQValues(self, state):
@@ -64,7 +67,7 @@ class QLearningAgent(ReinforcementAgent):
           terminal state, you should return a value of 0.0.
         """
         "*** YOUR CODE HERE ***"
-        valores = [self.getQValue(state,action) for action in self.getLegalActions(state)] #Los QValues de las acciones de un estado
+        valores = [self.getQValue(state, action) for action in self.getLegalActions(state)] #Los QValues de las acciones de un estado
         if not valores:
             return 0.0
         else:
